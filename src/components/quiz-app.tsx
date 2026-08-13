@@ -2,12 +2,13 @@
 
 import QuestionView from "@/components/question-view";
 import QuizHeader from "@/components/quiz-header";
+import ScoreView from "@/components/score-view";
 import SubjectMenu from "@/components/subject-menu";
 import { quizzes } from "@/data";
 import { useQuiz } from "@/hooks/use-quiz";
 
 export default function QuizApp() {
-  const { state, dispatch, start } = useQuiz();
+  const { state, dispatch, start, leave } = useQuiz();
 
   return (
     <>
@@ -18,6 +19,9 @@ export default function QuizApp() {
         )}
         {state.screen === "question" && (
           <QuestionView state={state} dispatch={dispatch} />
+        )}
+        {state.screen === "score" && (
+          <ScoreView state={state} onRestart={leave} />
         )}
       </main>
     </>

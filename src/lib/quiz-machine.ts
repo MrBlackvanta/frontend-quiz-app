@@ -14,6 +14,7 @@ export type QuizState =
   | { screen: "score"; quiz: Quiz; score: number };
 
 export type QuestionState = Extract<QuizState, { screen: "question" }>;
+export type ScoreState = Extract<QuizState, { screen: "score" }>;
 
 export type QuizAction =
   | { type: "pick"; quiz: Quiz }

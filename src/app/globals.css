@@ -149,7 +149,7 @@
 }
 
 @utility v-btn {
-  @apply flex min-h-14 w-full items-center justify-center rounded-card bg-accent text-label font-medium text-accent-ink transition-colors hover:bg-accent-hover motion-reduce:transition-none md:min-h-23 md:rounded-card-lg md:text-label-lg;
+  @apply flex min-h-14 w-full items-center justify-center rounded-card bg-accent text-label font-medium text-accent-ink shadow-card transition-colors hover:bg-accent-hover motion-reduce:transition-none md:min-h-23 md:rounded-card-lg md:text-label-lg;
 }
 
 @utility v-footer-link {
@@ -168,10 +168,14 @@
 
 @keyframes theme-sweep {
   from {
-    clip-path: circle(0% at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%));
+    clip-path: circle(
+      0% at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)
+    );
   }
   to {
-    clip-path: circle(150% at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%));
+    clip-path: circle(
+      150% at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)
+    );
   }
 }
 
