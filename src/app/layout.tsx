@@ -4,7 +4,7 @@ import "./globals.css";
 
 const rubik = Rubik({
   variable: "--font-rubik",
-  weight: ["400", "500"],
+  weight: ["300", "400", "500"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
