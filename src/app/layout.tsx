@@ -15,6 +15,8 @@ const description =
   "Test your knowledge of HTML, CSS, JavaScript and accessibility with a ten-question quiz — a Frontend Mentor challenge built with Next.js, TypeScript, and Tailwind CSS.";
 const siteUrl = "https://vanta-frontend-quiz-app.netlify.app";
 
+const applyStoredTheme = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
@@ -38,6 +40,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f6fa" },
+    { media: "(prefers-color-scheme: dark)", color: "#313e51" },
+  ],
 };
 
 export default function RootLayout({
@@ -46,8 +52,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${rubik.variable} antialiased`}>
-      <body className="flex min-h-dvh flex-col">{children}</body>
+    <html
+      lang="en"
+      className={`${rubik.variable} antialiased`}
+      suppressHydrationWarning
+    >
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: applyStoredTheme }} />
+        {children}
+      </body>
     </html>
   );
 }
