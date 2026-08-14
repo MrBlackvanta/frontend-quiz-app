@@ -10,10 +10,7 @@ export default function ThemeToggle() {
   function toggle(event: React.MouseEvent<HTMLButtonElement>) {
     const { left, top, width, height } =
       event.currentTarget.getBoundingClientRect();
-    const origin = {
-      x: event.clientX || left + width / 2,
-      y: event.clientY || top + height / 2,
-    };
+    const origin = { x: left + width / 2, y: top + height / 2 };
 
     withThemeSweep(() => setTheme(isDark ? "light" : "dark"), origin, !isDark);
   }

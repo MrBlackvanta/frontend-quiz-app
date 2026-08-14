@@ -167,6 +167,29 @@
   mix-blend-mode: normal;
 }
 
+[data-sweep="in"]::view-transition-new(root) {
+  animation: sweep-open 500ms ease-in-out forwards;
+}
+
 [data-sweep="out"]::view-transition-old(root) {
   z-index: 1;
+  animation: sweep-close 500ms ease-in-out forwards;
+}
+
+@keyframes sweep-open {
+  from {
+    clip-path: circle(0% at var(--sweep-x) var(--sweep-y));
+  }
+  to {
+    clip-path: circle(var(--sweep-r) at var(--sweep-x) var(--sweep-y));
+  }
+}
+
+@keyframes sweep-close {
+  from {
+    clip-path: circle(var(--sweep-r) at var(--sweep-x) var(--sweep-y));
+  }
+  to {
+    clip-path: circle(0% at var(--sweep-x) var(--sweep-y));
+  }
 }

@@ -144,11 +144,20 @@ React, where the correction is not visible.
 
 **The theme swap is a circular sweep anchored to the toggle**, and it runs both ways: switching to
 light opens the new theme outward from the toggle, switching to dark closes the old one back into
-it. Nothing in the design asks for it. It is a `clip-path` animation on
-`::view-transition-old(root)` or `::view-transition-new(root)`, driven through the Web Animations
-API rather than a CSS keyframe so the radius can be computed — `hypot` to the farthest corner,
-which is the smallest circle that covers the viewport. A fixed `150%` overshoots by 40% from a
-corner origin, and that overshoot is spent off-screen, so the sweep looks like it finishes early.
+it. Nothing in the design asks for it.
+
+It is a CSS `clip-path` keyframe on `::view-transition-old(root)` or `::view-transition-new(root)`,
+and three details are load-bearing. It has to be a **CSS** animation rather than one applied
+through the Web Animations API after `transition.ready`, because that promise resolves a frame
+late — long enough to paint the snapshot unclipped, which reads as the destination theme flashing
+before the circle appears. It needs **`forwards`**, or the clip reverts to unclipped when the
+animation ends and the outgoing light snapshot flashes back over the screen for a frame before
+the pseudo tree is torn down. And the origin and radius are passed as **percentages** rather than
+pixels, so the circle lands on the toggle whatever box the browser gives the snapshot; the radius
+is `hypot` to the farthest corner, converted against the box diagonal over root two, which is the
+smallest circle that covers the viewport. A fixed `150%` overshoots by 40% from a corner origin,
+and that overshoot is spent off-screen, so the sweep appears to finish early.
+
 Browsers without the API swap instantly, and so does `prefers-reduced-motion`. The transition's
 `ready` promise is caught and discarded because it rejects whenever the browser skips a
 transition, and an uncaught rejection would surface as a console error.

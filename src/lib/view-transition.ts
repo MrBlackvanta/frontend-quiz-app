@@ -2,8 +2,6 @@ import { flushSync } from "react-dom";
 
 type Origin = { x: number; y: number };
 
-const SWEEP_MS = 500;
-
 function canAnimate() {
   return (
     typeof document.startViewTransition === "function" &&
@@ -28,6 +26,19 @@ export function withThemeSweep(
   closing: boolean,
 ) {
   const root = document.documentElement;
+  const width = root.clientWidth;
+  const height = root.clientHeight;
+  const radius = Math.hypot(
+    Math.max(origin.x, width - origin.x),
+    Math.max(origin.y, height - origin.y),
+  );
+
+  root.style.setProperty("--sweep-x", `${(origin.x / width) * 100}%`);
+  root.style.setProperty("--sweep-y", `${(origin.y / height) * 100}%`);
+  root.style.setProperty(
+    "--sweep-r",
+    `${(radius / (Math.hypot(width, height) / Math.SQRT2)) * 100}%`,
+  );
   root.dataset.sweep = closing ? "out" : "in";
 
   const transition = withViewTransition(update);
@@ -35,26 +46,6 @@ export function withThemeSweep(
     clearSweep();
     return;
   }
-
-  transition.ready.then(() => {
-    const radius = Math.hypot(
-      Math.max(origin.x, root.clientWidth - origin.x),
-      Math.max(origin.y, root.clientHeight - origin.y),
-    );
-    const closed = `circle(0px at ${origin.x}px ${origin.y}px)`;
-    const open = `circle(${radius}px at ${origin.x}px ${origin.y}px)`;
-
-    root.animate(
-      { clipPath: closing ? [open, closed] : [closed, open] },
-      {
-        duration: SWEEP_MS,
-        easing: "ease-in-out",
-        pseudoElement: closing
-          ? "::view-transition-old(root)"
-          : "::view-transition-new(root)",
-      },
-    );
-  }, noop);
 
   transition.finished.then(clearSweep, clearSweep);
 }
