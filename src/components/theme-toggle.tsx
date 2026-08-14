@@ -2,27 +2,20 @@
 
 import { MoonIcon, SunIcon } from "@/components/icons";
 import { setTheme, useTheme } from "@/hooks/use-theme";
+import { withThemeSweep } from "@/lib/view-transition";
 
 export default function ThemeToggle() {
   const isDark = useTheme() === "dark";
 
   function toggle(event: React.MouseEvent<HTMLButtonElement>) {
-    const next = isDark ? "light" : "dark";
     const { left, top, width, height } =
       event.currentTarget.getBoundingClientRect();
-    const root = document.documentElement;
+    const origin = {
+      x: event.clientX || left + width / 2,
+      y: event.clientY || top + height / 2,
+    };
 
-    root.style.setProperty(
-      "--theme-origin-x",
-      `${event.clientX || left + width / 2}px`,
-    );
-    root.style.setProperty(
-      "--theme-origin-y",
-      `${event.clientY || top + height / 2}px`,
-    );
-
-    if (!document.startViewTransition) return setTheme(next);
-    document.startViewTransition(() => setTheme(next)).ready.catch(() => {});
+    withThemeSweep(() => setTheme(isDark ? "light" : "dark"), origin, !isDark);
   }
 
   return (

@@ -86,12 +86,14 @@ export default function OptionList({
               {letters[position]}
             </span>
             <span className="min-w-0 flex-1 wrap-break-word">{option}</span>
-            {(state === "correct" || state === "answer") && (
-              <CorrectIcon className="size-8 shrink-0 text-correct md:size-10" />
-            )}
-            {state === "incorrect" && (
-              <IncorrectIcon className="size-8 shrink-0 text-incorrect md:size-10" />
-            )}
+            <span className="size-8 shrink-0 md:size-10">
+              {(state === "correct" || state === "answer") && (
+                <CorrectIcon className="size-full text-correct" />
+              )}
+              {state === "incorrect" && (
+                <IncorrectIcon className="size-full text-incorrect" />
+              )}
+            </span>
           </label>
         );
       })}

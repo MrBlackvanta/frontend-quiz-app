@@ -158,29 +158,15 @@
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
+  animation-duration: 300ms;
+}
+
+[data-sweep]::view-transition-old(root),
+[data-sweep]::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-new(root) {
-  animation: theme-sweep 500ms ease-in-out;
-}
-
-@keyframes theme-sweep {
-  from {
-    clip-path: circle(
-      0% at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)
-    );
-  }
-  to {
-    clip-path: circle(
-      150% at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)
-    );
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-new(root) {
-    animation: none;
-  }
+[data-sweep="out"]::view-transition-old(root) {
+  z-index: 1;
 }

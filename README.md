@@ -113,6 +113,13 @@ overflows at every breakpoint without `min-w-0` on the flex item — `overflow-w
 alone does not reduce a flex item's min-content width. A two-line option makes a desktop card
 120px tall against the drawn 92.
 
+**Every option reserves space for the result icon, whether or not it gets one.** Only two of the
+four are ever marked, but adding a 40px icon plus its 32px gap at submit re-wraps the answer's
+text and shoves the rest of the page down — the design's own options are short enough that it
+never shows there. Reserving costs some width: at 1440 it takes 45 of the 160 options past the
+drawn card height instead of 35, and the tallest goes from two lines to three. At 375 the tallest
+card is unchanged and it is 57 against 44. That is the price of nothing moving when you answer.
+
 **The subject is spelled "JavaScript".** The design's tile reads "Javascript"; `data.json` reads
 "JavaScript", and the data wins.
 
@@ -135,11 +142,22 @@ falls back to `prefers-color-scheme`, so there is no flash. The toggle knob's po
 state it renders left during SSR and snaps right on hydration. `aria-checked` still comes from
 React, where the correction is not visible.
 
-**The theme swap is a circular sweep from the toggle**, via `startViewTransition` and a `clip-path`
-keyframe on `::view-transition-new(root)`. Nothing in the design asks for it. Browsers without the
-API swap instantly, and so does `prefers-reduced-motion`. The transition's `ready` promise is
-caught and discarded because it rejects whenever the browser skips a transition, and an uncaught
-rejection would surface as a console error.
+**The theme swap is a circular sweep anchored to the toggle**, and it runs both ways: switching to
+light opens the new theme outward from the toggle, switching to dark closes the old one back into
+it. Nothing in the design asks for it. It is a `clip-path` animation on
+`::view-transition-old(root)` or `::view-transition-new(root)`, driven through the Web Animations
+API rather than a CSS keyframe so the radius can be computed — `hypot` to the farthest corner,
+which is the smallest circle that covers the viewport. A fixed `150%` overshoots by 40% from a
+corner origin, and that overshoot is spent off-screen, so the sweep looks like it finishes early.
+Browsers without the API swap instantly, and so does `prefers-reduced-motion`. The transition's
+`ready` promise is caught and discarded because it rejects whenever the browser skips a
+transition, and an uncaught rejection would surface as a console error.
+
+**Screen changes cross-fade**, also not in the design: picking a subject, moving to the next
+question, reaching the score and going back all run through `startViewTransition` with the
+browser's default root cross-fade at 300ms. Selecting an option and submitting an answer do not —
+those change state within a screen, and fading the page under them would read as a glitch. React
+commits inside `flushSync` so the DOM is settled when the transition captures it.
 
 **Answers are four native radios in a `radiogroup` labelled by the question**, which is what makes
 arrow-key navigation and the roving tabindex free. They are `disabled` after submit rather than
