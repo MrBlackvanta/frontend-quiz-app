@@ -21,7 +21,8 @@ This is a solution to the [Frontend quiz app challenge on Frontend Mentor](https
 ### Links
 
 - Solution URL: [GitHub](https://github.com/MrBlackvanta/frontend-quiz-app)
-- Live Site URL: [Netlify](https://vanta-frontend-quiz-app.netlify.app)
+- Live Site URL: [Cloudflare](https://frontend-quiz-app.abdelrhman-ahmed8881.workers.dev)
+- Mirror: [Netlify](https://vanta-frontend-quiz-app.netlify.app)
 
 ## My process
 
