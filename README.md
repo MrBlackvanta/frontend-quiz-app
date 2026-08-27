@@ -22,7 +22,6 @@ This is a solution to the [Frontend quiz app challenge on Frontend Mentor](https
 
 - Solution URL: [GitHub](https://github.com/MrBlackvanta/frontend-quiz-app)
 - Live Site URL: [Cloudflare](https://frontend-quiz-app.abdelrhman-ahmed8881.workers.dev)
-- Mirror: [Netlify](https://vanta-frontend-quiz-app.netlify.app)
 
 ## My process
 
@@ -186,6 +185,6 @@ lines.
 
 ## Author
 
-- UpWork - [Abdelrhman Abdelaal](https://upwork.com/freelancers/~01f0a9479696b61f49)
+- UpWork - [Abdelrhman Abdelaal](https://www.upwork.com/freelancers/mrblackvanta)
 - Frontend Mentor - [@MrBlackvanta](https://www.frontendmentor.io/profile/MrBlackvanta)
 - LinkedIn - [Abdelrhman Abdelaal](https://www.linkedin.com/in/abdelrhman-vanta/)
