@@ -13,7 +13,7 @@ const rubik = Rubik({
 
 const title = "Frontend Quiz App";
 const description =
-  "Test your knowledge of HTML, CSS, JavaScript and accessibility with a ten-question quiz — a Frontend Mentor challenge built with Next.js, TypeScript, and Tailwind CSS.";
+  "Test your knowledge of HTML, CSS, JavaScript and accessibility with a ten-question quiz.";
 const applyStoredTheme = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}`;
 
 export const metadata: Metadata = {
