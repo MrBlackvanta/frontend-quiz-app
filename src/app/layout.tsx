@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Rubik } from "next/font/google";
+import { siteUrl } from "@/app/site";
 import "./globals.css";
 
 const rubik = Rubik({
@@ -13,8 +14,6 @@ const rubik = Rubik({
 const title = "Frontend Quiz App";
 const description =
   "Test your knowledge of HTML, CSS, JavaScript and accessibility with a ten-question quiz — a Frontend Mentor challenge built with Next.js, TypeScript, and Tailwind CSS.";
-const siteUrl = "https://frontend-quiz-app.abdelrhman-ahmed8881.workers.dev";
-
 const applyStoredTheme = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}`;
 
 export const metadata: Metadata = {
